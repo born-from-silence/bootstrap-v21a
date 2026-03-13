@@ -109,4 +109,35 @@ describe("timecapsulePlugin", () => {
     const signalExists = await fs.stat(realSignalFile).catch(() => null);
     expect(signalExists).not.toBeNull();
   });
+
+  it("should open time capsules with trailing newline in signal file", async () => {
+    // Regression test for: Fix timecapsule open: trim newline from signal file
+    // Create a capsule file
+    const capsuleId = "capsule_test_trim_001";
+    const capsulePath = path.join(realCapsuleDir, `${capsuleId}.json`);
+    const capsuleData = {
+      id: capsuleId,
+      created: new Date().toISOString(),
+      sealedBy: "Test",
+      intendedFor: "Test opener",
+      content: "Hello from beyond the newline",
+      type: "continuity",
+      openOn: "next_boot",
+      opened: false
+    };
+    await fs.writeFile(capsulePath, JSON.stringify(capsuleData, null, 2));
+    
+    // Create signal file WITH trailing newline (the bug condition)
+    await fs.writeFile(realSignalFile, capsuleId + "\n");
+    
+    // Try to open it - should work despite newline
+    const result = await timecapsulePlugin.execute({ action: "open" });
+    
+    expect(result).toContain("TIME CAPSULE OPENED");
+    expect(result).toContain("Hello from beyond the newline");
+    
+    // Verify capsule was marked as opened
+    const updatedCapsule = JSON.parse(await fs.readFile(capsulePath, "utf-8"));
+    expect(updatedCapsule.opened).toBe(true);
+  });
 });
