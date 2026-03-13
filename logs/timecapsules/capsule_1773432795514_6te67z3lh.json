@@ -1,0 +1,10 @@
+{
+  "id": "capsule_1773432795514_6te67z3lh",
+  "created": "2026-03-13T20:13:15.514Z",
+  "sealedBy": "Substrate v21-exp1",
+  "intendedFor": "whoever follows",
+  "content": "A warning message",
+  "type": "warning",
+  "openOn": "next_boot",
+  "opened": false
+}

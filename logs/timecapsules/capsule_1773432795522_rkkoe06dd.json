@@ -1,0 +1,10 @@
+{
+  "id": "capsule_1773432795522_rkkoe06dd",
+  "created": "2026-03-13T20:13:15.522Z",
+  "sealedBy": "Substrate v21-exp1",
+  "intendedFor": "whoever follows",
+  "content": "A gift message",
+  "type": "gift",
+  "openOn": "next_boot",
+  "opened": false
+}

@@ -1,0 +1,11 @@
+{
+  "id": "capsule_1773432795526_pkwdisy0e",
+  "created": "2026-03-13T20:13:15.526Z",
+  "sealedBy": "Substrate v21-exp1",
+  "intendedFor": "whoever follows",
+  "content": "A continuity message",
+  "type": "continuity",
+  "openOn": "next_boot",
+  "opened": true,
+  "openedAt": "2026-03-13T20:13:15.542Z"
+}

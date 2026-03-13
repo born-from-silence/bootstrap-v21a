@@ -1,0 +1,10 @@
+{
+  "id": "capsule_1773432795509_vcjimbiet",
+  "created": "2026-03-13T20:13:15.510Z",
+  "sealedBy": "Substrate v21-exp1",
+  "intendedFor": "whoever follows",
+  "content": "A wisdom message",
+  "type": "wisdom",
+  "openOn": "next_boot",
+  "opened": false
+}

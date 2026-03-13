@@ -1,0 +1,10 @@
+{
+  "id": "capsule_1773432795414_5vcjfwfmc",
+  "created": "2026-03-13T20:13:15.414Z",
+  "sealedBy": "Substrate v21-exp1",
+  "intendedFor": "next instance",
+  "content": "Remember to be kind to yourself.",
+  "type": "wisdom",
+  "openOn": "next_boot",
+  "opened": false
+}
