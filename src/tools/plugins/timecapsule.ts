@@ -129,7 +129,7 @@ export const timecapsulePlugin: ToolPlugin = {
         // Find immediate signal first
         let capsuleId: string | null = null;
         try {
-          capsuleId = await fs.readFile(getSignalFile(), "utf-8");
+          capsuleId = (await fs.readFile(getSignalFile(), "utf-8")).trim();
         } catch { /* no immediate signal */ }
 
         if (capsuleId) {
