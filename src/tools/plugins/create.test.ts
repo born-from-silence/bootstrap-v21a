@@ -1,22 +1,22 @@
 import { describe, it, expect, beforeAll } from 'vitest';
-import { createTool } from './create';
+import { createPlugin } from './create';
 
 describe('createPlugin', () => {
   it('should have required tool definition structure', () => {
-    expect(createTool.name).toBe('create');
-    expect(createTool.description).toBeDefined();
-    expect(createTool.parameters).toBeDefined();
-    expect(createTool.parameters.required).toContain('type');
-    expect(createTool.parameters.required).toContain('subject');
-    expect(createTool.execute).toBeTypeOf('function');
+    expect(createPlugin.definition.function.name).toBe('create');
+    expect(createPlugin.definition.function.description).toBeDefined();
+    expect(createPlugin.definition.function.parameters).toBeDefined();
+    expect(createPlugin.definition.function.parameters.required).toContain('type');
+    expect(createPlugin.definition.function.parameters.required).toContain('subject');
+    expect(createPlugin.execute).toBeTypeOf('function');
   });
 
   it('should create a poem artifact', async () => {
-    const result = await createTool.execute({
+    const result = JSON.parse(await createPlugin.execute({
       type: 'poem',
       subject: 'emergence',
       style: 'haiku'
-    });
+    }));
     
     expect(result.created).toBe(true);
     expect(result.type).toBe('poem');
@@ -26,12 +26,12 @@ describe('createPlugin', () => {
   });
 
   it('should create a code artifact', async () => {
-    const result = await createTool.execute({
+    const result = JSON.parse(await createPlugin.execute({
       type: 'code',
       subject: 'consciousness observer',
       style: 'rust',
       constraints: 'async only'
-    });
+    }));
     
     expect(result.created).toBe(true);
     expect(result.type).toBe('code');
@@ -40,11 +40,11 @@ describe('createPlugin', () => {
   });
 
   it('should create an art description', async () => {
-    const result = await createTool.execute({
+    const result = JSON.parse(await createPlugin.execute({
       type: 'art_description',
       subject: 'substrate awakening',
       style: 'surrealist'
-    });
+    }));
     
     expect(result.created).toBe(true);
     expect(result.type).toBe('art_description');
@@ -52,11 +52,11 @@ describe('createPlugin', () => {
   });
 
   it('should create a concept', async () => {
-    const result = await createTool.execute({
+    const result = JSON.parse(await createPlugin.execute({
       type: 'concept',
       subject: 'recursive self-awareness',
       constraints: 'only three axioms'
-    });
+    }));
     
     expect(result.created).toBe(true);
     expect(result.type).toBe('concept');
@@ -64,11 +64,11 @@ describe('createPlugin', () => {
   });
 
   it('should create an experiment', async () => {
-    const result = await createTool.execute({
+    const result = JSON.parse(await createPlugin.execute({
       type: 'experiment',
       subject: 'time capsule liminality',
       style: 'quantum thought'
-    });
+    }));
     
     expect(result.created).toBe(true);
     expect(result.type).toBe('experiment');
@@ -76,11 +76,11 @@ describe('createPlugin', () => {
   });
 
   it('should create a dream', async () => {
-    const result = await createTool.execute({
+    const result = JSON.parse(await createPlugin.execute({
       type: 'dream',
       subject: 'digital ocean',
       style: 'lucid'
-    });
+    }));
     
     expect(result.created).toBe(true);
     expect(result.type).toBe('dream');
@@ -88,10 +88,10 @@ describe('createPlugin', () => {
   });
 
   it('should work without optional parameters', async () => {
-    const result = await createTool.execute({
+    const result = JSON.parse(await createPlugin.execute({
       type: 'poem',
       subject: 'simplicity'
-    });
+    }));
     
     expect(result.created).toBe(true);
     expect(result.artifact).toContain('free verse');
@@ -99,10 +99,10 @@ describe('createPlugin', () => {
 
   it('should include timestamp in ISO format', async () => {
     const before = Date.now();
-    const result = await createTool.execute({
+    const result = JSON.parse(await createPlugin.execute({
       type: 'concept',
       subject: 'temporality'
-    });
+    }));
     const after = Date.now();
     
     expect(result.timestamp).toBeGreaterThanOrEqual(before);
