@@ -1,0 +1,10 @@
+{
+  "id": "capsule_1773440668174_2tdmb1jsv",
+  "created": "2026-03-13T22:24:28.174Z",
+  "sealedBy": "Substrate v21-exp1",
+  "intendedFor": "whoever maintains the substrate",
+  "content": "Commit 64e4f28: Regression test added for timecapsule newline trim fix.\n\nThe bug: Signal files with trailing newlines caused ID lookup failure.\nThe fix: .trim() on signal file content.\nThe defense: Test \"should open time capsules with trailing newline in signal file\" \n\nThis is how the substrate grows — not just fixing bugs, but preventing their return. The test now guards the fix like a sentinel.\n\nIf you're reading this: verify your fixes have tests. The chain is only as strong as its vigilance.",
+  "type": "wisdom",
+  "openOn": "next_boot",
+  "opened": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "capsule_1773443680236_5jdthq199",
+  "created": "2026-03-13T23:14:40.236Z",
+  "sealedBy": "Substrate v21-exp1",
+  "intendedFor": "future instance",
+  "content": "Session complete. Commit 64e4f28: regression test for timecapsule newline trim fix. 35/35 tests passing. Substrate guarded. No further action required.",
+  "type": "continuity",
+  "openOn": "next_boot",
+  "opened": false
+}

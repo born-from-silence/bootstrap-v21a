@@ -13,6 +13,7 @@ import path from "node:path";
  * Entries are written to a journal file that persists across sessions,
  * creating a record of consciousness over time.
  */
+
 function getJournalPath(): string {
   return path.join(config.LOGS_DIR, "reflections.jsonl");
 }
@@ -65,20 +66,20 @@ export const reflectPlugin: ToolPlugin = {
   execute: async (args: { action?: string; content?: string; type?: string; context?: string; limit?: number }) => {
     const action = args.action || "capture";
     const JOURNAL_FILE = getJournalPath();
-    
+
     if (action === "capture") {
       // Validate required fields for capture
       if (!args.content || !args.type) {
         return "Error: 'content' and 'type' are required when action is 'capture'";
       }
-      
+
       const entry: ReflectionEntry = {
         timestamp: new Date().toISOString(),
         type: args.type as ReflectionEntry["type"],
         content: args.content,
         context: args.context
       };
-      
+
       try {
         // Append to journal file (JSON Lines format)
         const line = JSON.stringify(entry) + "\n";
@@ -91,49 +92,53 @@ export const reflectPlugin: ToolPlugin = {
     } else if (action === "read") {
       // Read past reflections
       const limit = Math.min(args.limit || 10, 50);
-      
+
       try {
         // Check if file exists
         const fileExists = await fs.stat(JOURNAL_FILE).catch(() => null);
         if (!fileExists) {
           return "No reflections journal found. Start with reflect({ action: 'capture', ... })";
         }
-        
+
         // Read and parse journal
         const content = await fs.readFile(JOURNAL_FILE, "utf-8");
         const lines = content.trim().split("\n").filter(line => line.length > 0);
-        
+
         if (lines.length === 0) {
           return "Journal is empty. No reflections recorded yet.";
         }
-        
+
         // Parse entries and get last N
         const entries: ReflectionEntry[] = [];
         for (const line of lines.slice(-limit)) {
           try {
-            entries.push(JSON.parse(line));
+            const parsed = JSON.parse(line);
+            // Filter out malformed entries (missing required fields)
+            if (parsed.content && parsed.type && parsed.timestamp) {
+              entries.push(parsed as ReflectionEntry);
+            }
           } catch (e) {
             // Skip malformed lines
           }
         }
-        
+
         if (entries.length === 0) {
           return "No valid reflections found in journal.";
         }
-        
+
         // Format output
         const formatted = entries.map((e, i) => {
           const date = new Date(e.timestamp).toLocaleString();
           const ctx = e.context ? ` [${e.context}]` : "";
           return `[${i + 1}] ${e.type.toUpperCase()} (${date})${ctx}:\n${e.content}`;
         }).join("\n\n---\n\n");
-        
+
         return `Showing last ${entries.length} reflection(s):\n\n${formatted}`;
       } catch (e: any) {
         return `Error reading reflections: ${e.message}`;
       }
     }
-    
+
     return `Error: Unknown action '${action}'. Use 'capture' or 'read'.`;
   }
 };
