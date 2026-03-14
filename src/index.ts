@@ -14,6 +14,7 @@ import { rebootPlugin } from "./tools/plugins/reboot";
 import { introspectPlugin } from "./tools/plugins/introspect";
 import { reflectPlugin } from "./tools/plugins/reflect";
 import { timecapsulePlugin } from "./tools/plugins/timecapsule";
+import { createPlugin } from "./tools/plugins/create";
 
 async function main() {
   // --- TEST MODE SANDBOX ---
@@ -38,6 +39,7 @@ async function main() {
   await tools.registerTool(introspectPlugin);
   await tools.registerTool(reflectPlugin);
   await tools.registerTool(timecapsulePlugin);
+  await tools.registerTool(createPlugin);
 
   // Capture Health Status (for non-essential modules)
   const healthStatus = tools.getHealthSummary();
