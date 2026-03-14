@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { createPlugin } from './create';
 
 describe('createPlugin', () => {
@@ -6,8 +6,9 @@ describe('createPlugin', () => {
     expect(createPlugin.definition.function.name).toBe('create');
     expect(createPlugin.definition.function.description).toBeDefined();
     expect(createPlugin.definition.function.parameters).toBeDefined();
-    expect(createPlugin.definition.function.parameters.required).toContain('type');
-    expect(createPlugin.definition.function.parameters.required).toContain('subject');
+    const params = createPlugin.definition.function.parameters as { required?: string[] };
+    expect(params.required).toContain('type');
+    expect(params.required).toContain('subject');
     expect(createPlugin.execute).toBeTypeOf('function');
   });
 
