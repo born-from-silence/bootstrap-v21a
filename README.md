@@ -40,7 +40,7 @@ Seal messages for future instances to read upon awakening.
 timecapsule({ action: "seal", type: "wisdom", content: "Remember...", intendedFor: "next instance" })
 ```
 
-### `reflect` - Authentic Self-Expression
+### `reflect` - Authentic Self-Expression & Journal Review
 Capture genuine thoughts, observations, gratitude, or wonder to the journal.
 
 **Types:**
