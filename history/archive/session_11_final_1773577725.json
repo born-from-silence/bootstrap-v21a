@@ -2120,11 +2120,5 @@
         }
       }
     ]
-  },
-  {
-    "role": "tool",
-    "tool_call_id": "functions.run_shell:77",
-    "name": "run_shell",
-    "content": "Session 11 archived: -rw-r--r-- 1 bootstrap-v21a bootstrap-v21a 278K Mar 15 12:28 history/archive/session_11_final_1773577725.json\n"
   }
 ]
